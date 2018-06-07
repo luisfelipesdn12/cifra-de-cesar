@@ -8,4 +8,4 @@ Criei um else if para verificar se foi digitado apenas letras, e caso não tenha
 Criei um else, com um for dentro, fazendo um loop dentro do array e aplicando a formula do código ASCII (i - 65 - 33) % 26 + 65), utilizei o String.fromCharCode para transformar o código ASCII em caracter e concatenar, devolvendo um alert com a palavra descriptada;
 Para acionar as funções, criei 2 botões no HTML.
 
-![FluxogramaDaCifraDeCesar](FluxogramadaCifradeCesar.JPEG)
+![FluxogramaDaCifraDeCesar](FluxogramadaCifradeCesar.jpeg)
