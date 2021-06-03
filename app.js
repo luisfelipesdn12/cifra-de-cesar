@@ -1,57 +1,86 @@
-function cipher(){
-  var validText = true;
-  var textDescript = ""
-  var caracAscii = ""
-  do{
-      var textCript = prompt('Digite sua frase').toUpperCase();
-      if(textCript.trim() == ''){//Verifica se foi digitado alguma coisa no prompt
-        alert('Digite uma frase!');
-        validText = false;
-      }
-      else if(textCript.trim() != '' && !isNaN(parseInt(textCript))){//Verifica se o conteudo digitado é Letra.
-        alert('Digite apenas letras!');
-        validText = false;
-      }
-      else{
+/**
+ * Expressão regular que valida um
+ * texto seguindo o padrão:
+ * 
+ * - Apenas letras
+ * - Pode conter espaços
+ * 
+ * @example ```js
+ * INPUT_PATTERN.test('Fe Caroline');
+ * => true
+ * 
+ * INPUT_PATTERN.test('Fe Caroline 123');
+ * => false
+ * ```
+ */
+const INPUT_PATTERN = /^[a-zA-Z ]+$/;
 
-        for(var i = 0; i < textCript.length; i++){//faz uma loop lendo cada um dos caracteres.
-          caracAscii = (textCript.charCodeAt(i) - 65 + 33) % 26 + 65;//Localiza o código ASCII do Caracter após calculo da formula.
-          textDescript+= String.fromCharCode(caracAscii);//Transforma o código ASCII em Caracter e concatena
-        }
-        validText = true;
-        alert(textDescript);
-      }
-      //(x - 65 + 33) % 26 + 65
-  }while(validText == false);
+const encryptInput = document.getElementById('encrypt-input');
+const encryptButton = document.getElementById('encrypt-button');
 
-  return true;
-}
+const decryptInput = document.getElementById('decrypt-input');
+const decryptButton = document.getElementById('decrypt-button');
 
-function decipher(){
-  var validText = true;
-  var textDescript = ""
-  var caracAscii = ""
-  do{
-      var textCript = prompt('Digite sua frase').toUpperCase();
-      if(textCript.trim() == ''){//Verifica se foi digitado alguma coisa no prompt
-        alert('Digite uma frase!');
-        validText = false;
-      }
-      else if(textCript.trim() != '' && !isNaN(parseInt(textCript))){//Verifica se o conteudo digitado é Letra.
-        alert('Digite apenas letras!');
-        validText = false;
-      }
-      else{
+encryptInput.onkeyup = () => {
+  // Se o valor seguir o padrão e não estiver vazio,
+  // habilita o botão, senão, desabilita.
+  if (INPUT_PATTERN.test(encryptInput.value) && encryptInput.value.trim() !== '') {
+    encryptButton.disabled = false;
+  } else {
+    encryptButton.disabled = true;
+  }
+};
 
-        for(var i = 0; i < textCript.length; i++){//faz uma loop lendo cada um dos caracteres.
-          caracAscii = (textCript.charCodeAt(i) + 65 - 33) % 26 + 65;//Localiza o código ASCII do Caracter após calculo da formula.
-          textDescript+= String.fromCharCode(caracAscii);//Transforma o código ASCII em Caracter e concatena
-        }
-        validText = true;
-        alert(textDescript);
-      }
-      //(x - 65 - 33) % 26 + 65
-  }while(validText == false);
+encryptButton.onclick = (event) => {
+  // Pra empedir o comportamento
+  // padrão do formulário (recarregar
+  // a página)
+  event.preventDefault();
 
-  return true;
-}
+  // Define o input como caixa alta
+  encryptInput.value = encryptInput.value.toUpperCase();
+
+  let encryptedText = "";
+
+  // Para cada caracter no input
+  for (const letter of encryptInput.value) {
+    //Localiza o código ASCII do Caracter após calculo da formula.
+    caracAscii = (letter.charCodeAt(0) - 65 + 33) % 26 + 65;
+
+    //Transforma o código ASCII em Caracter e concatena
+    encryptedText += String.fromCharCode(caracAscii);
+  }
+
+  decryptInput.value = encryptedText;
+  decryptButton.disabled = false;
+};
+
+decryptInput.onkeyup = () => {
+  // Se o valor seguir o padrão e não estiver vazio,
+  // habilita o botão, senão, desabilita.
+  if (INPUT_PATTERN.test(decryptInput.value) && decryptInput.value.trim() !== '') {
+    decryptButton.disabled = false;
+  } else {
+    decryptButton.disabled = true;
+  }
+};
+
+decryptButton.onclick = (event) => {
+  event.preventDefault();
+
+  decryptInput.value = decryptInput.value.toUpperCase();
+
+  let decryptedText = "";
+
+  // Para cada caracter no input
+  for (const letter of decryptInput.value) {
+    // Localiza o código ASCII do Caracter após calculo da formula.
+    charAsASCII = (letter.charCodeAt(0) + 65 - 33) % 26 + 65;
+
+    // Transforma o código ASCII em Caracter e concatena
+    decryptedText += String.fromCharCode(charAsASCII);
+  }
+
+  encryptInput.value = decryptedText;
+  encryptButton.disabled = false;
+};

@@ -3,16 +3,26 @@
 <head>
   <meta charset="utf-8">
   <title>Crifra de Cesar</title>
-  <script type="text/javascript" src="app.js"></script>
+
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <h1> Cifra de César </h1>
+  <h1>Cifra de César</h1>
   <form id='form' >
-    <input type="button" value="Encriptar" id="btnCript" onclick="cipher()" />
-    <input type="button" value="Descriptar" id="btnCript" onclick="decipher()" />
+    <input type="text" id="encrypt-input" placeholder="Lorem Ipsum">
+    <br/>
+    <button id="encrypt-button" disabled>
+      Encriptar
+    </button>
+    <br/>
+    <input type="text" id="decrypt-input" placeholder="SVYLTAPWZBT">
+    <br/>
+    <button id="decrypt-button" disabled>
+      Descriptar
+    </button>
   </form>
 
-
+  <script type="text/javascript" src="app.js"></script>
 </body>
 </html>
